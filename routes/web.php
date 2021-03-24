@@ -20,5 +20,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'DashboardController@index')->name('games.home');
+Route::get('/product/{game}', 'DashboardController@show')->name('games.show.public');
 
-Route::get('/', 'DashboardController@index');
+
+Route::prefix('admin')
+->namespace('Admin')
+->middleware('auth')
+->group(function () {
+    Route::resource('games','AdminController');
+});

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\GameModel;
+use App\Game;
 class DashboardController extends Controller
 {
    /**
@@ -13,7 +13,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $games = Game::all();
+        return view('index',compact('games'));
     }
 
     /**
@@ -22,8 +23,8 @@ class DashboardController extends Controller
      * @param  int  $game
      * @return \Illuminate\Http\Response
      */
-    public function show(GameModel $game)
+    public function show(Game $game)
     {
-        //
+        return view('/product',compact('game'));
     }
 }
