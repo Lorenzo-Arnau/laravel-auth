@@ -10,48 +10,52 @@
 </head>
 <body>
     <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-            <div class="top-right links">
-                @auth
-                    <a href="{{ url('/home') }}">Home</a>
-                @else
-                    <a href="{{ route('login') }}">Login</a>
-
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}">Register</a>
-                    @endif
-                @endauth
-                @endif
-     </div>
+    </div>
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{route('games.create')}}">Add</a>
-            </li>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('games.create')}}">Add</a>
+                </li>
+
+
+                <li class="nav-item">
+                    @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/home') }}" class="nav-link">Home</a>
+                            @else
+                                <a href="{{ route('login') }}" class="nav-link">Login</a>
+                </li>
+
+                                @if (Route::has('register'))
+                <li class="nav-item">
+                                <a href="{{ route('register') }}" class="nav-link">Register</a>
+                </li>
+                                @endif
+                            @endauth
+                            @endif
           </ul>
-          {{-- <form class="form-inline" method="post" action="{{route('index.games')}}">
+           <form class="form-inline" method="post" action="{{route('games.home')}}">
             @csrf
             @method('GET')
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="item">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form> --}}
+          </form>
         </div>
       </nav>
 
     <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
+
             <th scope="col">Name</th>
-            <th scope="col">description</th>
             <th scope="col">console</th>
             <th scope="col">price</th>
             <th scope="col">cover</th>
@@ -61,9 +65,8 @@
         <tbody>
             @foreach ($games as $item)
             <tr>
-              <th scope="row">{{$item->id}}</th>
+
               <td>{{$item->name}}</td>
-              <td>{{$item->description}}</td>
               <td>{{$item->console}}</td>
               <td>{{$item->price}}</td>
               <td><img src="{{$item->cover}}" width="200" alt="" ></td>
@@ -85,9 +88,7 @@
                 <button  type="button" class="btn btn-success"  href="{{route('games.edit',['game' => $item->id])}}">
                     <a href="{{route('games.edit',['game' => $item->id])}}"><i class="fas fa-edit"></i></a>
                 </button>
-                <button  type="button" class="btn btn-success"  href="{{route('games.create')}}">
-                    <a href="{{route('games.create')}}">Add New</a>
-                </button>
+
                 @endif
 
             </td>

@@ -13,7 +13,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $games = Game::all();
+        $data = $_REQUEST;
+        if (empty($data['item'])) {
+            $games = Game::all();
+        }
+        if(!empty($data["item"])){
+            $games = Game::where("name", "=", $data["item"])->get();
+        }
         return view('index',compact('games'));
     }
 
